@@ -2,6 +2,7 @@ var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
 var repoContainerEL = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
+var languageButtonsEl = document.querySelector("#language-buttons");
 
 var getUserRepos = function(user) {
     // format the github api url
@@ -51,6 +52,19 @@ var formSubmitHander = function(event) {
     }
 };
 
+var buttonClickHandler = function(event) {
+    // variable for the language data
+    var language = event.target.getAttribute("data-language")
+    
+    // check the return
+    if (language) {
+        getFeaturedRepos(language);
+
+        // clear old content 
+        repoContainerEL.textContent = "";
+    }
+}
+
 var displayRepos = function(repos, searchTerm) {
     // check if api returned any repos
     if (repos.length === 0) {
@@ -99,4 +113,5 @@ var displayRepos = function(repos, searchTerm) {
     }
 }
 userFormEl.addEventListener("submit",formSubmitHander);
+languageButtonsEl.addEventListener("click", buttonClickHandler);   
 // getUserRepos("j-maclellan");
